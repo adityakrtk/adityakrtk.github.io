@@ -812,27 +812,27 @@
       <div class="section-label">Get in touch</div>
       <h2>Let's build your <em>website.</em></h2>
       <p>Tell me about your business and I'll get back to you within 24 hours with a free quote.</p>
-      <div class="contact-form">
+      <form class="contact-form" action="https://formspree.io/f/xbdzjepe" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label>Your name</label>
-            <input type="text" placeholder="Rahul Sharma" />
+            <input type="text" name="name" placeholder="Rahul Sharma" required />
           </div>
           <div class="form-group">
             <label>Phone / WhatsApp</label>
-            <input type="text" placeholder="+91 98765 43210" />
+            <input type="text" name="phone" placeholder="+91 98765 43210" required />
           </div>
         </div>
         <div class="form-group">
           <label>Business type</label>
-          <input type="text" placeholder="Restaurant, salon, shop..." />
+          <input type="text" name="business_type" placeholder="Restaurant, salon, shop..." required />
         </div>
         <div class="form-group">
           <label>Tell me about your project</label>
-          <textarea placeholder="What does your business do? What do you need on your website?"></textarea>
+          <textarea name="message" placeholder="What does your business do? What do you need on your website?"></textarea>
         </div>
-        <button class="btn-submit" onclick="alert('Thanks! I\'ll get back to you within 24 hours. 🙌')">Send message →</button>
-      </div>
+        <button type="submit" class="btn-submit">Send message →</button>
+      </form>
     </div>
   </section>
 
@@ -840,13 +840,13 @@
   <footer>
     <p>© 2026 Aditya — Web Designer</p>
     <div class="footer-links">
-      <a href="mailto:adityakrtk@gmail.com">Email</a>
-      <a href="#">WhatsApp</a>
-      <a href="#">Instagram</a>
+      <a href="mailto:adityakrtk23@gmail.com">Email</a>
+      <a href="https://wa.me/919523381167" target="_blank">WhatsApp</a>
+      <a href="https://instagram.com/Adi.krtk" target="_blank">Instagram</a>
     </div>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Cursor
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
@@ -878,9 +878,4 @@
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.1 });
-    reveals.forEach(r => observer.observe(r));
-  </script>
-</body>
-</html>
+      entries.forEach(e => { if (e.isIntersect
