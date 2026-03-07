@@ -230,10 +230,11 @@
       100% { transform: scaleY(0); transform-origin: bottom; }
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .hero-tag { animation: none; }
+    .hero h1 { animation: none; }
+    .hero-sub { animation: none; }
+    .hero-cta { animation: none; }
+    .hero-scroll { animation: none; }
 
     /* MARQUEE */
     .marquee-section {
@@ -841,13 +842,13 @@
   <footer>
     <p>© 2026 Aditya — Web Designer</p>
     <div class="footer-links">
-      <a href="mailto:adityakrtk23@gmail.com" target="_blank" rel="noopener">Email</a>
+      <a href="/cdn-cgi/l/email-protection#abcacfc2dfd2cac0d9dfc09998ebccc6cac2c785c8c4c6" target="_blank" rel="noopener">Email</a>
       <a href="https://wa.me/919523381167" target="_blank" rel="noopener">WhatsApp</a>
       <a href="https://www.instagram.com/Adi.krtk" target="_blank" rel="noopener">Instagram</a>
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Cursor
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
@@ -877,6 +878,4 @@
     });
 
     // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersect
+    const
