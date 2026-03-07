@@ -230,6 +230,13 @@
     .mock-bar { display: flex; gap: 4px; margin-bottom: 8px; }
     .mock-dot { width: 6px; height: 6px; border-radius: 50%; }
     .mock-line { height: 6px; border-radius: 3px; background: #2a2a2a; margin-bottom: 6px; }
+
+    /* rich site mockup */
+    .site-mockup {
+      width: 88%; border-radius: 6px;
+      overflow: hidden; border: 1px solid #2a2a2a;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    }
     .port-overlay {
       position: absolute; inset: 0; background: rgba(8,8,8,0.88);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -388,49 +395,170 @@
   <section id="work" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
     <div class="sec-label">Recent Work</div>
     <div class="portfolio-grid">
+
+      <!-- 1. Green Bites Cafe -->
       <div class="port-card reveal">
         <div class="port-inner">
-          <div class="port-mock" style="background:#1a1f1a;">
-            <div class="mock-bar"><div class="mock-dot" style="background:#c8f542"></div><div class="mock-dot" style="background:#444"></div><div class="mock-dot" style="background:#444"></div></div>
-            <div class="mock-line" style="width:60%;background:#2a3a2a;"></div>
-            <div class="mock-line" style="width:90%;background:#222e22;"></div>
-            <div class="mock-line" style="width:45%;background:#222e22;"></div>
-            <div style="height:28px;background:#c8f542;border-radius:3px;margin-top:10px;width:34%;"></div>
+          <div class="site-mockup" style="background:#0d1a0d;font-family:Georgia,serif;">
+            <!-- nav -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#0a150a;border-bottom:1px solid #1a3a1a;">
+              <span style="color:#c8f542;font-weight:700;font-size:9px;letter-spacing:1px;">GREEN BITES</span>
+              <div style="display:flex;gap:8px;">
+                <span style="color:#aaa;font-size:6px;">Menu</span>
+                <span style="color:#aaa;font-size:6px;">Gallery</span>
+                <span style="color:#aaa;font-size:6px;">Book</span>
+              </div>
+            </div>
+            <!-- hero -->
+            <div style="background:linear-gradient(160deg,#0d2a0d,#1a3a0a);padding:14px 12px 10px;text-align:center;">
+              <div style="font-size:14px;color:#c8f542;font-weight:700;letter-spacing:-0.5px;margin-bottom:4px;">Fresh. Local. Delicious.</div>
+              <div style="font-size:6px;color:#aaa;margin-bottom:8px;">Farm-to-table restaurant in the heart of the city</div>
+              <div style="display:inline-block;background:#c8f542;color:#000;font-size:6px;font-weight:700;padding:4px 10px;border-radius:20px;">Book a Table</div>
+            </div>
+            <!-- menu items -->
+            <div style="display:flex;gap:6px;padding:8px 12px;">
+              <div style="flex:1;background:#111f11;border-radius:4px;padding:6px;border:1px solid #1e3a1e;">
+                <div style="height:22px;background:linear-gradient(135deg,#1a3a1a,#2a4a1a);border-radius:3px;margin-bottom:4px;display:flex;align-items:center;justify-content:center;font-size:10px;">&#127807;</div>
+                <div style="font-size:6px;color:#ddd;font-weight:600;">Garden Salad</div>
+                <div style="font-size:5px;color:#c8f542;">&#8377;180</div>
+              </div>
+              <div style="flex:1;background:#111f11;border-radius:4px;padding:6px;border:1px solid #1e3a1e;">
+                <div style="height:22px;background:linear-gradient(135deg,#2a3a0a,#3a4a1a);border-radius:3px;margin-bottom:4px;display:flex;align-items:center;justify-content:center;font-size:10px;">&#127829;</div>
+                <div style="font-size:6px;color:#ddd;font-weight:600;">Herb Pizza</div>
+                <div style="font-size:5px;color:#c8f542;">&#8377;320</div>
+              </div>
+              <div style="flex:1;background:#111f11;border-radius:4px;padding:6px;border:1px solid #1e3a1e;">
+                <div style="height:22px;background:linear-gradient(135deg,#1a2a0a,#2a3a0a);border-radius:3px;margin-bottom:4px;display:flex;align-items:center;justify-content:center;font-size:10px;">&#127830;</div>
+                <div style="font-size:6px;color:#ddd;font-weight:600;">Veg Pasta</div>
+                <div style="font-size:5px;color:#c8f542;">&#8377;250</div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="port-overlay"><h3>Green Bites Cafe</h3><p>Restaurant website with menu, gallery &amp; booking form</p><div class="port-tag">Hospitality</div></div>
       </div>
+
+      <!-- 2. Sharma Electronics -->
       <div class="port-card reveal" style="transition-delay:0.1s">
         <div class="port-inner">
-          <div class="port-mock" style="background:#1a1a2a;">
-            <div class="mock-bar"><div class="mock-dot" style="background:#7b7bf5"></div><div class="mock-dot" style="background:#444"></div><div class="mock-dot" style="background:#444"></div></div>
-            <div class="mock-line" style="width:70%;background:#22223a;"></div>
-            <div class="mock-line" style="width:50%;background:#1e1e32;"></div>
-            <div style="display:flex;gap:6px;margin-top:10px;"><div style="height:38px;background:#1e1e38;border-radius:3px;flex:1;border:1px solid #2a2a4a;"></div><div style="height:38px;background:#1e1e38;border-radius:3px;flex:1;border:1px solid #2a2a4a;"></div></div>
+          <div class="site-mockup" style="background:#0a0a1a;font-family:Arial,sans-serif;">
+            <!-- nav -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#07071a;border-bottom:1px solid #1a1a3a;">
+              <span style="color:#7b7bf5;font-weight:700;font-size:9px;letter-spacing:1px;">SHARMA ELECTRONICS</span>
+              <div style="background:#7b7bf5;color:#fff;font-size:5px;padding:3px 7px;border-radius:10px;">Shop Now</div>
+            </div>
+            <!-- hero banner -->
+            <div style="background:linear-gradient(135deg,#0d0d2a,#1a1a4a);padding:10px 12px;display:flex;align-items:center;gap:10px;">
+              <div>
+                <div style="font-size:10px;color:#fff;font-weight:700;margin-bottom:3px;">Latest Electronics</div>
+                <div style="font-size:5.5px;color:#aaa;margin-bottom:6px;">Best prices in town. Trusted since 2010.</div>
+                <div style="display:inline-block;background:#7b7bf5;color:#fff;font-size:5px;padding:3px 8px;border-radius:10px;">Browse Catalog</div>
+              </div>
+              <div style="font-size:28px;opacity:0.6;">&#128250;</div>
+            </div>
+            <!-- product grid -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:8px 12px;">
+              <div style="background:#111128;border:1px solid #1e1e42;border-radius:4px;padding:6px;text-align:center;">
+                <div style="font-size:16px;margin-bottom:3px;">&#128247;</div>
+                <div style="font-size:5.5px;color:#ddd;">Cameras</div>
+                <div style="font-size:5px;color:#7b7bf5;">12 items</div>
+              </div>
+              <div style="background:#111128;border:1px solid #1e1e42;border-radius:4px;padding:6px;text-align:center;">
+                <div style="font-size:16px;margin-bottom:3px;">&#128241;</div>
+                <div style="font-size:5.5px;color:#ddd;">Phones</div>
+                <div style="font-size:5px;color:#7b7bf5;">28 items</div>
+              </div>
+              <div style="background:#111128;border:1px solid #1e1e42;border-radius:4px;padding:6px;text-align:center;">
+                <div style="font-size:16px;margin-bottom:3px;">&#128187;</div>
+                <div style="font-size:5.5px;color:#ddd;">Laptops</div>
+                <div style="font-size:5px;color:#7b7bf5;">9 items</div>
+              </div>
+              <div style="background:#111128;border:1px solid #1e1e42;border-radius:4px;padding:6px;text-align:center;">
+                <div style="font-size:16px;margin-bottom:3px;">&#127911;</div>
+                <div style="font-size:5.5px;color:#ddd;">Audio</div>
+                <div style="font-size:5px;color:#7b7bf5;">15 items</div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="port-overlay"><h3>Sharma Electronics</h3><p>Local electronics shop with product catalog</p><div class="port-tag">Retail</div></div>
       </div>
+
+      <!-- 3. DriveEase Motors -->
       <div class="port-card reveal">
         <div class="port-inner">
-          <div class="port-mock" style="background:#221a1a;">
-            <div class="mock-bar"><div class="mock-dot" style="background:#f59042"></div><div class="mock-dot" style="background:#444"></div><div class="mock-dot" style="background:#444"></div></div>
-            <div style="display:flex;gap:8px;margin-bottom:8px;"><div style="width:38px;height:38px;background:#2e2020;border-radius:3px;"></div><div style="flex:1;"><div class="mock-line" style="width:80%;"></div><div class="mock-line" style="width:50%;"></div></div></div>
-            <div class="mock-line" style="width:100%;"></div><div class="mock-line" style="width:70%;"></div>
+          <div class="site-mockup" style="background:#100a00;font-family:Arial,sans-serif;">
+            <!-- nav -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#0a0600;border-bottom:1px solid #2a1a00;">
+              <span style="color:#f59042;font-weight:700;font-size:9px;letter-spacing:1px;">DRIVEEASE MOTORS</span>
+              <div style="background:#f59042;color:#000;font-size:5px;font-weight:700;padding:3px 7px;border-radius:10px;">Enquire Now</div>
+            </div>
+            <!-- hero -->
+            <div style="background:linear-gradient(160deg,#1a0d00,#2a1500);padding:10px 12px;">
+              <div style="font-size:11px;color:#fff;font-weight:700;margin-bottom:2px;">Find Your Dream Car</div>
+              <div style="font-size:5.5px;color:#aaa;margin-bottom:7px;">100+ vehicles available. Best deals guaranteed.</div>
+              <!-- car illustration -->
+              <div style="background:#1e1000;border:1px solid #3a2000;border-radius:4px;padding:6px;display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <div style="font-size:24px;">&#128664;</div>
+                <div>
+                  <div style="font-size:7px;color:#f59042;font-weight:700;">2024 Sedan Pro</div>
+                  <div style="font-size:5.5px;color:#aaa;">Automatic | Petrol | 15km/l</div>
+                  <div style="font-size:7px;color:#fff;margin-top:2px;">&#8377;8.5 Lakh</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:5px;">
+                <div style="flex:1;background:#f59042;color:#000;font-size:5px;font-weight:700;padding:4px;border-radius:10px;text-align:center;">WhatsApp Us</div>
+                <div style="flex:1;border:1px solid #f59042;color:#f59042;font-size:5px;padding:4px;border-radius:10px;text-align:center;">View All Cars</div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="port-overlay"><h3>DriveEase Motors</h3><p>Auto dealership site with inquiry &amp; WhatsApp CTA</p><div class="port-tag">Automotive</div></div>
       </div>
+
+      <!-- 4. Zara Beauty Salon -->
       <div class="port-card reveal" style="transition-delay:0.1s">
         <div class="port-inner">
-          <div class="port-mock" style="background:#1a1a1a;">
-            <div class="mock-bar"><div class="mock-dot" style="background:#f5e642"></div><div class="mock-dot" style="background:#444"></div><div class="mock-dot" style="background:#444"></div></div>
-            <div style="height:48px;background:linear-gradient(135deg,#2a2a1a,#3a3a1a);border-radius:3px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;"><div style="width:55%;height:5px;background:rgba(245,230,66,0.25);border-radius:3px;"></div></div>
-            <div class="mock-line" style="width:90%;"></div><div class="mock-line" style="width:60%;"></div>
+          <div class="site-mockup" style="background:#1a0f1a;font-family:Georgia,serif;">
+            <!-- nav -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#120a12;border-bottom:1px solid #2a1a2a;">
+              <span style="color:#f5c6f0;font-weight:700;font-size:9px;letter-spacing:2px;">ZARA BEAUTY</span>
+              <div style="background:linear-gradient(90deg,#d4a0d0,#f5c6f0);color:#000;font-size:5px;font-weight:700;padding:3px 7px;border-radius:10px;">Book Now</div>
+            </div>
+            <!-- hero -->
+            <div style="background:linear-gradient(160deg,#1f0a1f,#2a0f2a);padding:12px;text-align:center;">
+              <div style="font-size:13px;color:#f5c6f0;font-weight:700;letter-spacing:1px;margin-bottom:3px;">Glow Up. Stand Out.</div>
+              <div style="font-size:5.5px;color:#cc99cc;margin-bottom:8px;">Premium beauty services at affordable prices</div>
+              <!-- services -->
+              <div style="display:flex;gap:5px;justify-content:center;margin-bottom:8px;">
+                <div style="background:#2a102a;border:1px solid #3a1a3a;border-radius:4px;padding:5px 7px;text-align:center;">
+                  <div style="font-size:11px;">&#128133;</div>
+                  <div style="font-size:5px;color:#f5c6f0;margin-top:2px;">Nails</div>
+                  <div style="font-size:4.5px;color:#cc99cc;">&#8377;299</div>
+                </div>
+                <div style="background:#2a102a;border:1px solid #3a1a3a;border-radius:4px;padding:5px 7px;text-align:center;">
+                  <div style="font-size:11px;">&#9986;&#65039;</div>
+                  <div style="font-size:5px;color:#f5c6f0;margin-top:2px;">Haircut</div>
+                  <div style="font-size:4.5px;color:#cc99cc;">&#8377;399</div>
+                </div>
+                <div style="background:#2a102a;border:1px solid #3a1a3a;border-radius:4px;padding:5px 7px;text-align:center;">
+                  <div style="font-size:11px;">&#128141;</div>
+                  <div style="font-size:5px;color:#f5c6f0;margin-top:2px;">Facial</div>
+                  <div style="font-size:4.5px;color:#cc99cc;">&#8377;599</div>
+                </div>
+                <div style="background:#2a102a;border:1px solid #3a1a3a;border-radius:4px;padding:5px 7px;text-align:center;">
+                  <div style="font-size:11px;">&#128167;</div>
+                  <div style="font-size:5px;color:#f5c6f0;margin-top:2px;">Massage</div>
+                  <div style="font-size:4.5px;color:#cc99cc;">&#8377;799</div>
+                </div>
+              </div>
+              <div style="display:inline-block;background:linear-gradient(90deg,#d4a0d0,#f5c6f0);color:#000;font-size:5.5px;font-weight:700;padding:4px 12px;border-radius:20px;">Book Appointment</div>
+            </div>
           </div>
         </div>
         <div class="port-overlay"><h3>Zara Beauty Salon</h3><p>Salon booking site with services &amp; pricing</p><div class="port-tag">Beauty</div></div>
       </div>
+
     </div>
   </section>
 
