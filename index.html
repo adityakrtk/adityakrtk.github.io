@@ -302,6 +302,10 @@
     .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.shown { opacity: 1; transform: translateY(0); }
 
+    /* port-overlay must always start hidden regardless of reveal state */
+    .port-overlay { opacity: 0 !important; }
+    .port-card:hover .port-overlay { opacity: 1 !important; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
       nav { padding: 1.2rem 1.5rem; }
@@ -619,19 +623,20 @@
   <footer>
     <p>&#169; 2026 Aditya &#8212; Web Designer</p>
     <div class="footer-links">
-      <a id="emailLink">Email</a>
+      <a id="emailLink" style="cursor:pointer;">Email</a>
       <a href="https://wa.me/919523381167" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       <a href="https://www.instagram.com/Adi.krtk" target="_blank" rel="noopener noreferrer">Instagram</a>
     </div>
   </footer>
 
   <script>
-    /* EMAIL LINK — built in JS so Cloudflare cannot rewrite it */
+    /* EMAIL — onclick so Cloudflare cannot touch it */
     (function() {
-      var u = 'adityakrtk23';
-      var d = 'gmail.com';
       var el = document.getElementById('emailLink');
-      el.href = 'mailto:' + u + '@' + d;
+      var u = 'adityakrtk23';
+      var d = 'gmail';
+      var t = 'com';
+      el.onclick = function() { window.location.href = 'mai' + 'lto:' + u + '@' + d + '.' + t; };
     })();
 
     /* CURSOR */
@@ -672,7 +677,7 @@
           observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
 
     document.querySelectorAll('.reveal').forEach(function(el) {
       observer.observe(el);
