@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aditya — Web Designer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --border: #1e1e1e;
+      --accent: #c8f542;
+      --accent2: #f5e642;
+      --text: #f0f0f0;
+      --muted: #666;
+      --card: #131313;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transition: all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+      opacity: 0.5;
+    }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9000;
+      opacity: 0.4;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 4rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-color: var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-text {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(8rem, 20vw, 22rem);
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1px #1a1a1a;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      animation: bgTextFloat 8s ease-in-out infinite;
+    }
+    @keyframes bgTextFloat {
+      0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+      50% { transform: translate(-50%, -50%) translateY(-20px); }
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      width: fit-content;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.5); }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+    .hero h1 .line { display: block; overflow: hidden; }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+      position: relative;
+    }
+    .hero-sub {
+      margin-top: 2rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.7;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.9rem 2.2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(200, 245, 66, 0.3);
+    }
+    .btn-ghost {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--text); }
+    .btn-ghost .arrow { transition: transform 0.2s; }
+    .btn-ghost:hover .arrow { transform: translateX(4px); }
+
+    .hero-scroll {
+      position: absolute;
+      right: 4rem; bottom: 5rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: fadeUp 0.8s 0.5s ease both;
+    }
+    .hero-scroll .line-scroll {
+      width: 1px; height: 60px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MARQUEE */
+    .marquee-section {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 0;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .marquee-track {
+      display: flex; gap: 3rem;
+      animation: marquee 20s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      display: flex; align-items: center; gap: 1rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .marquee-item .dot { color: var(--accent); font-size: 1.2rem; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* SECTION COMMON */
+    section { padding: 7rem 4rem; }
+    .section-label {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .service-card {
+      background: var(--card);
+      padding: 2.5rem;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card:hover { background: #181818; }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--accent);
+      transition: width 0.4s ease;
+    }
+    .service-card:hover::after { width: 100%; }
+    .service-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+    .service-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .service-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .service-price {
+      margin-top: 1.5rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .service-price span {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* PORTFOLIO */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .portfolio-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      background: var(--card);
+      aspect-ratio: 16/10;
+      cursor: pointer;
+    }
+    .portfolio-card-inner {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1rem;
+      transition: transform 0.4s ease;
+    }
+    .portfolio-card:hover .portfolio-card-inner { transform: scale(1.02); }
+    .portfolio-mock {
+      width: 80%; border-radius: 4px;
+      background: #1a1a1a;
+      border: 1px solid #222;
+      padding: 1rem;
+    }
+    .mock-bar {
+      display: flex; gap: 4px; margin-bottom: 8px;
+    }
+    .mock-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+    }
+    .mock-line {
+      height: 6px; border-radius: 3px;
+      background: #2a2a2a; margin-bottom: 6px;
+    }
+    .portfolio-overlay {
+      position: absolute; inset: 0;
+      background: rgba(10,10,10,0.85);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      padding: 2rem;
+      text-align: center;
+    }
+    .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+    .portfolio-overlay h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .portfolio-overlay p { color: var(--muted); font-size: 0.85rem; }
+    .portfolio-tag {
+      margin-top: 1rem;
+      background: var(--accent);
+      color: #000;
+      font-size: 0.7rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+    }
+
+    /* WHY ME */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .why-left h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+    }
+    .why-left h2 em { font-style: normal; color: var(--accent); }
+    .why-left p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      max-width: 400px;
+    }
+    .stats-row {
+      display: flex; gap: 3rem;
+      margin-top: 3rem;
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .why-right {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .why-item {
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: 4px;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .why-item:hover {
+      border-color: var(--accent);
+      background: rgba(200,245,66,0.03);
+    }
+    .why-icon {
+      font-size: 1.3rem;
+      width: 2.5rem; height: 2.5rem;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface);
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .why-item h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .why-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* CONTACT */
+    #contact {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .contact-inner {
+      max-width: 700px;
+    }
+    .contact-inner h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+    .contact-inner h2 em { font-style: normal; color: var(--accent); }
+    .contact-inner p {
+      color: var(--muted); font-size: 1rem; margin-bottom: 2.5rem; line-height: 1.7;
+    }
+    .contact-form {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+    }
+    .form-group input,
+    .form-group textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.85rem 1rem;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--accent); }
+    .form-group textarea { min-height: 120px; }
+    .btn-submit {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 1rem 2.5rem;
+      border-radius: 100px;
+      cursor: none;
+      letter-spacing: 0.02em;
+      width: fit-content;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(200,245,66,0.3);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    footer p { font-size: 0.8rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.5rem 2rem; }
+      .hero { padding: 0 2rem 4rem; }
+      section { padding: 5rem 2rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">adi<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg-text">WEB</div>
+    <div class="hero-tag">Available for new projects</div>
+    <h1>
+      <span class="line">I build websites</span>
+      <span class="line">that get your</span>
+      <span class="line">business <em>noticed.</em></span>
+    </h1>
+    <p class="hero-sub">Fast, beautiful, affordable websites for local businesses. No templates. No fluff. Just results.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Start a project</a>
+      <a href="#work" class="btn-ghost">See my work <span class="arrow">→</span></a>
+    </div>
+    <div class="hero-scroll">
+      <div class="line-scroll"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-item"><span class="dot">✦</span> Web Design</div>
+      <div class="marquee-item"><span class="dot">✦</span> Local Business Websites</div>
+      <div class="marquee-item"><span class="dot">✦</span> Mobile Responsive</div>
+      <div class="marquee-item"><span class="dot">✦</span> Fast Delivery</div>
+      <div class="marquee-item"><span class="dot">✦</span> Affordable Pricing</div>
+      <div class="marquee-item"><span class="dot">✦</span> SEO Ready</div>
+      <div class="marquee-item"><span class="dot">✦</span> Web Design</div>
+      <div class="marquee-item"><span class="dot">✦</span> Local Business Websites</div>
+      <div class="marquee-item"><span class="dot">✦</span> Mobile Responsive</div>
+      <div class="marquee-item"><span class="dot">✦</span> Fast Delivery</div>
+      <div class="marquee-item"><span class="dot">✦</span> Affordable Pricing</div>
+      <div class="marquee-item"><span class="dot">✦</span> SEO Ready</div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-label">Services</div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <h3>Starter Site</h3>
+        <p>A clean, single-page website perfect for small businesses that need a professional online presence without breaking the bank.</p>
+        <div class="service-price">₹8,000 <span>/ one time</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <h3>Business Site</h3>
+        <p>A full multi-page website with services, about, contact, and gallery. Everything your customers need to trust and hire you.</p>
+        <div class="service-price">₹18,000 <span>/ one time</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <h3>Care Plan</h3>
+        <p>Monthly updates, backups, and support so your website stays fast, secure, and up to date. Peace of mind included.</p>
+        <div class="service-price">₹2,500 <span>/ month</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="work" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="section-label">Recent Work</div>
+    <div class="portfolio-grid reveal">
+
+      <div class="portfolio-card">
+        <div class="portfolio-card-inner">
+          <div class="portfolio-mock" style="background: #1a1f1a;">
+            <div class="mock-bar"><div class="mock-dot" style="background:#c8f542"></div><div class="mock-dot" style="background:#444"></div><div class="mock-dot" style="background:#444"></div></div>
+            <div class="mock-line" style="width:60%; background:#2a3a2a;"></div>
+            <div class="mock-line" style="width:90%; background:#222e22;"></div>
+            <div class="mock-line" style="width:40%; background:#222e22;"></div>
+            <div style="height:30px; background:#c8f542; border-radius:3px; margin-top:10px; width:35%;"></div>
+          </div>
+        </div>
+        <div class="portfolio-overlay">
+          <h3>Green Bites Café</h3>
+          <p>Restaurant website with menu, gallery & booking form</p>
+          <div class="portfolio-tag">Hospitality</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-card-inner">
+          <div class="portfolio-mock" style="background: #1a1a2a;">
+            <div class="mock-bar"><div class="mock-dot" style="background:#7b7bf5"></div><div class="mock-dot" style="background:#444"></div><div class="mock-dot" style="background:#444"></div></div>
+            <div class="mock-line" style="width:70%; background:#22223a;"></div>
+            <div class="mock-line" style="width:50%; background:#1e1e32;"></div>
+            <div style="display:flex; gap:6px; margin-top:10px;">
+              <div style="height:40px; background:#1e1e38; border-radius:3px; flex:1; border:1px solid #2a2a4a;"></div>
+              <div style="height:40px; background:#1e1e38; border-radius:3px; flex:1; border:1px solid #2a2a4a;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-overlay">
+          <h3>Sharma Electronics</h3>
+          <p>Local electronics shop with product catalog</p>
+          <div class="portfolio-tag">Retail</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-card-inner">
+          <div class="portfolio-mock" style="background: #221a1a;">
+            <div class="mock-bar"><div class="mock-dot" style="background:#f59042"></div><div class="mock-dot" style="background:#444"></div><div class="mock-dot" style="background:#444"></div></div>
+            <div style="display:flex; gap:8px; margin-bottom:8px;">
+              <div style="width:40px; height:40px; background:#2e2020; border-radius:3px;"></div>
+              <div style="flex:1;">
+                <div class="mock-line" style="width:80%;"></div>
+                <div class="mock-line" style="width:50%;"></div>
+              </div>
+            </div>
+            <div class="mock-line" style="width:100%;"></div>
+            <div class="mock-line" style="width:75%;"></div>
+          </div>
+        </div>
+        <div class="portfolio-overlay">
+          <h3>DriveEase Motors</h3>
+          <p>Auto dealership site with inquiry & WhatsApp CTA</p>
+          <div class="portfolio-tag">Automotive</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-card-inner">
+          <div class="portfolio-mock" style="background: #1a1a1a;">
+            <div class="mock-bar"><div class="mock-dot" style="background:#f5e642"></div><div class="mock-dot" style="background:#444"></div><div class="mock-dot" style="background:#444"></div></div>
+            <div style="height: 50px; background: linear-gradient(135deg,#2a2a1a,#3a3a1a); border-radius:3px; margin-bottom:8px; display:flex;align-items:center;justify-content:center;">
+              <div style="width:60%;height:6px;background:#f5e64240;border-radius:3px;"></div>
+            </div>
+            <div class="mock-line" style="width:90%;"></div>
+            <div class="mock-line" style="width:60%;"></div>
+          </div>
+        </div>
+        <div class="portfolio-overlay">
+          <h3>Zara Beauty Salon</h3>
+          <p>Salon booking site with services & pricing</p>
+          <div class="portfolio-tag">Beauty</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHY ME -->
+  <section id="about">
+    <div class="why-grid reveal">
+      <div class="why-left">
+        <div class="section-label">Why me</div>
+        <h2>Local expertise. <em>Real results.</em></h2>
+        <p>I'm a student web designer based in Jharkhand who specializes in helping local businesses get online fast and affordably. No agencies, no middlemen — just me and your project.</p>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-num">5+</div>
+            <div class="stat-label">Sites delivered</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">7d</div>
+            <div class="stat-label">Avg. turnaround</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Client satisfaction</div>
+          </div>
+        </div>
+      </div>
+      <div class="why-right">
+        <div class="why-item">
+          <div class="why-icon">⚡</div>
+          <div>
+            <h4>Fast turnaround</h4>
+            <p>Most websites are ready within 5–7 days. No waiting months for an agency.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">💰</div>
+          <div>
+            <h4>Honest pricing</h4>
+            <p>Clear, upfront pricing. No hidden fees. Packages built for Indian small businesses.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">📱</div>
+          <div>
+            <h4>Mobile-first design</h4>
+            <p>Every site looks perfect on phones — where 80% of your customers will find you.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">🤝</div>
+          <div>
+            <h4>Local & personal</h4>
+            <p>I'm in your city. You can call, WhatsApp, or meet me. Real support, real person.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner reveal">
+      <div class="section-label">Get in touch</div>
+      <h2>Let's build your <em>website.</em></h2>
+      <p>Tell me about your business and I'll get back to you within 24 hours with a free quote.</p>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your name</label>
+            <input type="text" placeholder="Rahul Sharma" />
+          </div>
+          <div class="form-group">
+            <label>Phone / WhatsApp</label>
+            <input type="text" placeholder="+91 98765 43210" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Business type</label>
+          <input type="text" placeholder="Restaurant, salon, shop..." />
+        </div>
+        <div class="form-group">
+          <label>Tell me about your project</label>
+          <textarea placeholder="What does your business do? What do you need on your website?"></textarea>
+        </div>
+        <button class="btn-submit" onclick="alert('Thanks! I\'ll get back to you within 24 hours. 🙌')">Send message →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Aditya — Web Designer</p>
+    <div class="footer-links">
+      <a href="mailto:adityakrtk@gmail.com">Email</a>
+      <a href="#">WhatsApp</a>
+      <a href="#">Instagram</a>
+    </div>
+  </footer>
+
+  <script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx - 6 + 'px';
+      cursor.style.top = my - 6 + 'px';
+    });
+    function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx - 18 + 'px';
+      ring.style.top = ry - 18 + 'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
+    document.querySelectorAll('a, button, .service-card, .portfolio-card, .why-item').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2)'; ring.style.transform = 'scale(1.5)'; });
+      el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; });
+    });
+
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
