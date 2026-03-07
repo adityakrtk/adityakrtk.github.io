@@ -221,26 +221,31 @@
     /* ── PORTFOLIO ── */
     .portfolio-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem; }
     .port-card {
-      border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
-      position: relative; background: var(--card); aspect-ratio: 16/10;
+      border: 1px solid var(--border); border-radius: 8px;
+      overflow: hidden; position: relative;
+      background: var(--card); height: 280px;
     }
-    .port-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; transition: transform 0.4s ease; }
-    .port-card:hover .port-inner { transform: scale(1.03); }
-    .port-mock { width: 76%; border-radius: 4px; border: 1px solid #222; padding: 1rem; }
-    .mock-bar { display: flex; gap: 4px; margin-bottom: 8px; }
-    .mock-dot { width: 6px; height: 6px; border-radius: 50%; }
-    .mock-line { height: 6px; border-radius: 3px; background: #2a2a2a; margin-bottom: 6px; }
-
-    /* rich site mockup */
+    .port-inner {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.4s ease;
+    }
+    .port-card:hover .port-inner { transform: scale(1.02); }
     .site-mockup {
-      width: 88%; border-radius: 6px;
-      overflow: hidden; border: 1px solid #2a2a2a;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      width: 85%; border-radius: 6px;
+      overflow: hidden; border: 1px solid #333;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+      pointer-events: none;
     }
     .port-overlay {
-      position: absolute; inset: 0; background: rgba(8,8,8,0.88);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.3s; padding: 2rem; text-align: center;
+      position: absolute; inset: 0;
+      background: rgba(5,5,5,0.92);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      padding: 2rem; text-align: center;
+      z-index: 10;
     }
     .port-card:hover .port-overlay { opacity: 1; }
     .port-overlay h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.4rem; }
@@ -300,10 +305,10 @@
 
     /* ── REVEAL ── */
     .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.shown { opacity: 1; transform: translateY(0); }
+    .reveal.shown { opacity: 1 !important; transform: translateY(0); }
 
-    /* port-overlay must always start hidden regardless of reveal state */
-    .port-overlay { opacity: 0 !important; }
+    /* port-overlay independent of reveal */
+    .port-card .port-overlay { opacity: 0 !important; transition: opacity 0.3s ease; }
     .port-card:hover .port-overlay { opacity: 1 !important; }
 
     /* ── RESPONSIVE ── */
@@ -398,10 +403,10 @@
   <!-- PORTFOLIO -->
   <section id="work" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
     <div class="sec-label">Recent Work</div>
-    <div class="portfolio-grid">
+    <div class="portfolio-grid reveal">
 
       <!-- 1. Green Bites Cafe -->
-      <div class="port-card reveal">
+      <div class="port-card">
         <div class="port-inner">
           <div class="site-mockup" style="background:#0d1a0d;font-family:Georgia,serif;">
             <!-- nav -->
@@ -443,7 +448,7 @@
       </div>
 
       <!-- 2. Sharma Electronics -->
-      <div class="port-card reveal" style="transition-delay:0.1s">
+      <div class="port-card" style="transition-delay:0.1s">
         <div class="port-inner">
           <div class="site-mockup" style="background:#0a0a1a;font-family:Arial,sans-serif;">
             <!-- nav -->
@@ -489,7 +494,7 @@
       </div>
 
       <!-- 3. DriveEase Motors -->
-      <div class="port-card reveal">
+      <div class="port-card">
         <div class="port-inner">
           <div class="site-mockup" style="background:#100a00;font-family:Arial,sans-serif;">
             <!-- nav -->
@@ -521,7 +526,7 @@
       </div>
 
       <!-- 4. Zara Beauty Salon -->
-      <div class="port-card reveal" style="transition-delay:0.1s">
+      <div class="port-card" style="transition-delay:0.1s">
         <div class="port-inner">
           <div class="site-mockup" style="background:#1a0f1a;font-family:Georgia,serif;">
             <!-- nav -->
@@ -623,20 +628,18 @@
   <footer>
     <p>&#169; 2026 Aditya &#8212; Web Designer</p>
     <div class="footer-links">
-      <a id="emailLink" style="cursor:pointer;">Email</a>
+      <a id="emailLink" data-u="adityakrtk23" data-d="gmail.com" style="cursor:pointer;">Email</a>
       <a href="https://wa.me/919523381167" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       <a href="https://www.instagram.com/Adi.krtk" target="_blank" rel="noopener noreferrer">Instagram</a>
     </div>
   </footer>
 
   <script>
-    /* EMAIL — onclick so Cloudflare cannot touch it */
+    /* EMAIL — uses data attributes, Cloudflare cannot detect or rewrite this */
     (function() {
       var el = document.getElementById('emailLink');
-      var u = 'adityakrtk23';
-      var d = 'gmail';
-      var t = 'com';
-      el.onclick = function() { window.location.href = 'mai' + 'lto:' + u + '@' + d + '.' + t; };
+      var addr = el.getAttribute('data-u') + '@' + el.getAttribute('data-d');
+      el.onclick = function(e) { e.preventDefault(); window.location.href = 'mailto:' + addr; };
     })();
 
     /* CURSOR */
