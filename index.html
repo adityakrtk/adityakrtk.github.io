@@ -383,13 +383,13 @@
         <div class="svc-num">01</div>
         <h3>Starter Site</h3>
         <p>A clean, single-page website perfect for small businesses that need a professional online presence without breaking the bank.</p>
-        <div class="svc-price">&#8377;8,000 <span>/ one time</span></div>
+        <div class="svc-price">&#8377;5,000 <span>/ one time</span></div>
       </div>
       <div class="svc-card reveal" style="transition-delay:0.1s">
         <div class="svc-num">02</div>
         <h3>Business Site</h3>
         <p>A full multi-page website with services, about, contact, and gallery. Everything your customers need to trust and hire you.</p>
-        <div class="svc-price">&#8377;18,000 <span>/ one time</span></div>
+        <div class="svc-price">&#8377;15,000 <span>/ one time</span></div>
       </div>
       <div class="svc-card reveal" style="transition-delay:0.2s">
         <div class="svc-num">03</div>
@@ -639,7 +639,7 @@
     (function() {
       var el = document.getElementById('emailLink');
       var addr = el.getAttribute('data-u') + '@' + el.getAttribute('data-d');
-      el.onclick = function(e) { e.preventDefault(); window.location.href = 'mailto:' + addr; };
+      el.onclick = function(e) { e.preventDefault(); window.open('mailto:' + addr, '_self'); };
     })();
 
     /* CURSOR */
